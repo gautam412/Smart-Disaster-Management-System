@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Smart Disaster Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Dashboard</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="admin.html" onclick="logout()">Logout</a>
+      <button id="theme-toggle" class="theme-toggle-btn">🌙</button>
+    </nav>
+  </header>
+
+  <section class="container">
+    <h2>Dashboard Overview</h2>
+    <div class="dashboard">
+      <div class="card">
+        <h3>All Active Alerts</h3>
+        <ul id="allAlerts">
+          <li>⚠️ Flash Flood Warning - Uttarkashi (Sep 2025)</li>
+          <li>⚠️ Landslide Risk - Gangotri Highway</li>
+        </ul>
+        <button onclick="addAlert()">Add Alert</button>
+      </div>
+      <div class="card">
+        <h3>All Recent Incidents</h3>
+        <ul id="allIncidents">
+          <li>✅ Aug 2025: Cloudburst in Barkot, 3 rescued</li>
+          <li>✅ Jul 2025: Landslide blocked Gangotri road</li>
+        </ul>
+        <button onclick="addIncident()">Add Incident</button>
+      </div>
+      <div class="card">
+        <h3>Disaster Statistics</h3>
+        <ul id="statsDisplay">
+          <li>🌧️ Floods: 45 incidents this year</li>
+          <li>🏔️ Landslides: 28 reported</li>
+          <li>☁️ Cloudbursts: 12 events</li>
+          <li>👥 People Affected: 2,500+</li>
+        </ul>
+        <button onclick="editStats()">Edit Statistics</button>
+      </div>
+      <div class="card">
+        <h3>Government Helplines</h3>
+        <ul id="helplinesDisplay">
+          <li>📞 NDMA: 011-26701700</li>
+          <li>📞 Uttarakhand SDMA: 0135-2710334</li>
+          <li>📞 State Control Room: 1070</li>
+          <li>🚒 Fire Services: 101</li>
+          <li>🚔 Police: 100</li>
+        </ul>
+        <button onclick="editHelplines()">Edit Helplines</button>
+      </div>
+      <div class="card">
+        <h3>Reported Incidents</h3>
+        <ul id="reportedIncidents">
+          <li>📝 Barkot Flood Report - Verified ✅</li>
+          <li>📝 Gangotri Landslide - Under Review</li>
+        </ul>
+        <button onclick="addReportedIncident()">Add Reported Incident</button>
+      </div>
+    </div>
+
+    <div id="editStatsForm" style="display: none;" class="card">
+      <h3>Edit Statistics</h3>
+      <form id="statsForm">
+        <label>Floods: <input type="number" id="floods" value="45"></label>
+        <label>Landslides: <input type="number" id="landslides" value="28"></label>
+        <label>Cloudbursts: <input type="number" id="cloudbursts" value="12"></label>
+        <label>People Affected: <input type="number" id="affected" value="2500"></label>
+        <button type="submit">Update</button>
+        <button type="button" onclick="cancelEditStats()">Cancel</button>
+      </form>
+    </div>
+
+    <div id="editHelplinesForm" style="display: none;" class="card">
+      <h3>Edit Helplines</h3>
+      <form id="helplinesForm">
+        <label>NDMA: <input type="text" id="ndma" value="011-26701700"></label>
+        <label>Uttarakhand SDMA: <input type="text" id="sdma" value="0135-2710334"></label>
+        <label>State Control Room: <input type="text" id="control" value="1070"></label>
+        <label>Fire Services: <input type="text" id="fire" value="101"></label>
+        <label>Police: <input type="text" id="police" value="100"></label>
+        <button type="submit">Update</button>
+        <button type="button" onclick="cancelEditHelplines()">Cancel</button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    // Check if user is logged in
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.href = 'admin.html';
+    }
+
+    // Fetch reported incidents on page load
+    fetchReportedIncidents();
+
+    function logout() {
+      localStorage.removeItem('loggedIn');
+      window.location.href = 'admin.html';
+    }
+
+    function addAlert() {
+      const alertText = prompt('Enter new alert:');
+      if (alertText) {
+        const li = document.createElement('li');
+        li.textContent = alertText;
+        document.getElementById('allAlerts').appendChild(li);
+      }
+    }
+
+    function addIncident() {
+      const incidentText = prompt('Enter new incident:');
+      if (incidentText) {
+        const li = document.createElement('li');
+        li.textContent = incidentText;
+        document.getElementById('allIncidents').appendChild(li);
+      }
+    }
+
+    function addReportedIncident() {
+      const incidentText = prompt('Enter new reported incident:');
+      if (incidentText) {
+        const li = document.createElement('li');
+        li.textContent = incidentText;
+        document.getElementById('reportedIncidents').appendChild(li);
+      }
+    }
+
+    // Function to fetch and display reported incidents
+    async function fetchReportedIncidents() {
+      try {
+        const response = await fetch('/api/incidents');
+        const incidents = await response.json();
+        const list = document.getElementById('reportedIncidents');
+        list.innerHTML = ''; // Clear existing
+        incidents.forEach(incident => {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${incident.name}</strong> - ${incident.location} (${incident.disasterType})<br>${incident.description}<br>Submitted: ${new Date(incident.timestamp).toLocaleString()}`;
+          if (incident.image) {
+            const img = document.createElement('img');
+            img.src = `/uploads/${incident.image}`;
+            img.style.maxWidth = '100px';
+            img.style.maxHeight = '100px';
+            li.appendChild(img);
+          }
+          list.appendChild(li);
+        });
+      } catch (error) {
+        console.error('Error fetching incidents:', error);
+      }
+    }
+
+    function editStats() {
+      document.getElementById('editStatsForm').style.display = 'block';
+    }
+
+    function cancelEditStats() {
+      document.getElementById('editStatsForm').style.display = 'none';
+    }
+
+    document.getElementById('statsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const floods = document.getElementById('floods').value;
+      const landslides = document.getElementById('landslides').value;
+      const cloudbursts = document.getElementById('cloudbursts').value;
+      const affected = document.getElementById('affected').value;
+      document.getElementById('statsDisplay').innerHTML = `
+        <li>🌧️ Floods: ${floods} incidents this year</li>
+        <li>🏔️ Landslides: ${landslides} reported</li>
+        <li>☁️ Cloudbursts: ${cloudbursts} events</li>
+        <li>👥 People Affected: ${affected}+</li>
+      `;
+      cancelEditStats();
+      alert('Statistics updated!');
+    });
+
+    function editHelplines() {
+      document.getElementById('editHelplinesForm').style.display = 'block';
+    }
+
+    function cancelEditHelplines() {
+      document.getElementById('editHelplinesForm').style.display = 'none';
+    }
+
+    document.getElementById('helplinesForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const ndma = document.getElementById('ndma').value;
+      const sdma = document.getElementById('sdma').value;
+      const control = document.getElementById('control').value;
+      const fire = document.getElementById('fire').value;
+      const police = document.getElementById('police').value;
+      document.getElementById('helplinesDisplay').innerHTML = `
+        <li>📞 NDMA: ${ndma}</li>
+        <li>📞 Uttarakhand SDMA: ${sdma}</li>
+        <li>📞 State Control Room: ${control}</li>
+        <li>🚒 Fire Services: ${fire}</li>
+        <li>🚔 Police: ${police}</li>
+      `;
+      cancelEditHelplines();
+      alert('Helplines updated!');
+    });
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

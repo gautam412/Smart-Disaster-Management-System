@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Find Shelter - Uttarakhand</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Find Shelter - Uttarakhand</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="map.html">Map</a>
+      <a href="alerts.html">Alerts</a>
+      <a href="report.html">Report Incident</a>
+      <a href="resources.html">Resources</a>
+      <a href="shelter.html" class="active">Find Shelter</a>
+      <a href="photo-gallery.html">Photo Gallery</a>
+      <a href="about.html">About</a>
+      <a href="admin.html">Login</a>
+      <button id="theme-toggle" class="theme-toggle-btn">🌙</button>
+    </nav>
+  </header>
+
+  <section class="shelter-container">
+    <div class="left-panel">
+      <h2>Select District</h2>
+      <select id="districtSelect" onchange="goToDistrict()">
+        <option value="">-- Select District --</option>
+        <option value="30.73,78.44">Uttarkashi</option>
+        <option value="30.31,78.03">Dehradun</option>
+        <option value="30.41,78.03">Chamoli</option>
+        <option value="30.28,78.98">Rudraprayag</option>
+        <option value="30.39,78.48">Tehri Garhwal</option>
+        <option value="29.58,78.78">Pithoragarh</option>
+        <option value="30.15,80.22">Pauri Garhwal</option>
+        <option value="29.38,79.45">Almora</option>
+        <option value="29.83,79.78">Bageshwar</option>
+        <option value="29.33,79.65">Champawat</option>
+        <option value="29.92,78.07">Haridwar</option>
+        <option value="29.38,79.45">Nainital</option>
+        <option value="29.02,79.48">Udham Singh Nagar</option>
+      </select>
+      <div id="institutions-list">
+        <h3>Government Schools & Polytechnics</h3>
+        <ul id="schools-list"></ul>
+      </div>
+    </div>
+    <div class="right-panel">
+      <h1>Shelter Locations Map</h1>
+      <div id="mapid"></div>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery - Smart Disaster Management System - Uttarakhand</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="home" class="container">
+
+    <!-- Hero Section -->
+    <div class="hero photo-gallery-hero">
+      <h1>Disaster Awareness Photo Gallery</h1>
+      <p>Visual insights into disaster preparedness and response in Uttarakhand.</p>
+    </div>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="map.html">Map</a>
+    <a href="alerts.html">Alerts</a>
+    <a href="report.html">Report Incident</a>
+    <a href="resources.html">Resources</a>
+    <a href="photo-gallery.html" class="active">Photo Gallery</a>
+    <a href="about.html">About</a>
+    <a href="admin.html">Login</a>
+    <button id="theme-toggle" class="theme-toggle-btn">🌙</button>
+  </nav>
+
+  <!-- Photo Gallery -->
+  <section id="photo-gallery" class="container">
+    <h2>Photo Gallery</h2>
+
+    <!-- Mentorship Section -->
+    <h3>Mentorship</h3>
+    <div class="gallery-grid">
+      <img src="image/20251027_151250.jpg" alt="20251027_151250" title="Mentorship" onclick="openLightbox(this)">
+      <img src="image/20251027_151314.jpg" alt="20251027_151314" title="Leadership" onclick="openLightbox(this)">
+      <img src="image/20251027_151341.jpg" alt="20251027_151341" title="inspection" onclick="openLightbox(this)">
+      <img src="image/20251027_151349.jpg" alt="20251027_151349" title="Preview" onclick="openLightbox(this)">
+      <img src="image/20251027_151434.jpg" alt="20251027_151434" title="Motivating." onclick="openLightbox(this)">
+    </div>
+
+    <!-- Disaster and Rescue Section -->
+    <h3>Disaster and rescue</h3>
+    <div class="gallery-grid">
+      <img src="image/Bridge collapses on gangotri hioghway.avif" alt="Bridge collapses on Gangotri highway" title="Gaumukh glacier region — source of the Ganga River." onclick="openLightbox(this)">
+      <img src="image/gaumukh.jpg" alt="Gaumukh" onclick="openLightbox(this)">
+      <img src="image/nalupani landslide.jpg" alt="Nalupani landslide" onclick="openLightbox(this)">
+      <img src="image/Rescue mission during cloudburst.avif" alt="Rescue mission during cloudburst" onclick="openLightbox(this)">
+      <img src="image/silkyara tunnel collpes.avif" alt="Silkyara tunnel collapse" onclick="openLightbox(this)">
+
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+      <img id="lightbox-img" src="" alt="">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p><a href="mailto:info@uttarakhanddisaster.gov.in">📧 info@uttarakhanddisaster.gov.in</a></p>
+        <p><a href="tel:+91-135-2710334">📞 +91-135-2710334</a></p>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <p>🔗 <a href="https://www.facebook.com/UttarakhandGov" target="_blank">Facebook</a> | <a href="https://twitter.com/uttarakhandgov" target="_blank">Twitter</a> | <a href="https://www.instagram.com/uttarakhandgov/" target="_blank">Instagram</a></p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <p><a href="map.html">Map</a> | <a href="alerts.html">Alerts</a> | <a href="report.html">Report</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Smart Disaster Management System - Uttarakhand. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Disaster Management System - Uttarakhand</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+
+<section id="home" class="container">
+
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Smart Disaster Management System (Uttarakhand)</h1>
+        <p>Stay Informed, Stay Safe. Your gateway to real-time disaster alerts and resources.</p>
+        <button class="hero-btn" onclick="scrollToDashboard()">Get Started</button>
+      </div>
+    </div>
+
+<marquee scrollamount="4" id="topMarquee" onmouseover="this.setAttribute('scrollamount', 0, 0); document.getElementById('topMarquee').stop();" onmouseout="this.setAttribute('scrollamount', 4, 0); document.getElementById('topMarquee').start();" style="border: 2px solid #444; border-radius: 5px; padding: 5px;">
+
+     		        <div class="region region-highlights">
+    <div id="block-block-8" class="block block-block first last odd">
+
+      <p>Saving Lives &amp; Beyond “आपदा सेवा सदैव सर्वत्र”             NDRF Helpline Number : +91-9711077372              Saving Lives &amp; Beyond “आपदा सेवा सदैव सर्वत्र”             NDRF Helpline Number : +91-9711077372              Saving Lives &amp; Beyond “आपदा सेवा सदैव सर्वत्र”             NDRF Helpline Number : +91-9711077372              Saving Lives &amp; Beyond “आपदा सेवा सदैव सर्वत्र”</p>
+
+</div>
+  </div>
+</marquee>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="#home">🏠</a>
+    <a href="map.html">Map</a>
+    <a href="alerts.html" class="active">Alerts</a>
+    <a href="report.html" class="active">🚨 Report Incident</a>
+    <a href="resources.html" class="active">Resources</a>
+    <a href="photo-gallery.html">📸 Photo Gallery</a>
+    <a href="about.html">About</a>
+    <a href="admin.html">Login</a>
+    <button id="theme-toggle" class="theme-toggle-btn">🌙</button>
+  </nav>
+
+<marquee behavior="scroll" direction="left" scrollamount="15">
+  <div class="sos-buttons">
+    <button class="sos" onclick="triggerSOS()">🆘 SOS</button>
+    <button class="helpline" onclick="showHelplines()">☎️ Helplines</button>
+    <button class="route" onclick="findSafeRoute()">🛣️ Safe Route</button>
+  </div>
+</marquee>
+
+  <!-- Quick Actions and Photo Gallery -->
+  <div class="actions-gallery-container">
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+      <h2>Quick Actions</h2>
+      <p>Take immediate steps to stay safe during emergencies.</p>
+      <div class="action-buttons">
+        <button onclick="window.location.href='shelter.html'">🏠 Find Shelter</button>
+        <button onclick="showHelplines()">📞 Helplines</button>
+      </div>
+    </section>
+
+    <!-- Rotating Photo Gallery -->
+    <section class="photo-gallery">
+      <h2>Disaster Awareness Gallery</h2>
+      <div class="gallery-container">
+        <img src="Disaster Awareness Gallery/d1.gif" alt="Disaster Awareness 1" class="gallery-image active">
+        <img src="Disaster Awareness Gallery/d2.avif" alt="Disaster Awareness 2" class="gallery-image">
+        <img src="Disaster Awareness Gallery/d3.jpg" alt="Disaster Awareness 3" class="gallery-image">
+        <img src="Disaster Awareness Gallery/d4.jpg" alt="Disaster Awareness 4" class="gallery-image">
+        <img src="Disaster Awareness Gallery/d5.jpg" alt="Disaster Awareness 5" class="gallery-image">
+        <img src="uploads/download (2).jpg" alt="Disaster Awareness 6" class="gallery-image">
+      </div>
+    </section>
+  </div>
+
+  <!-- Home/Dashboard -->
+
+     <div class="dashboard">
+      <div class="card">
+        <h2>Active Alerts</h2>
+        <ul id="alerts-list">
+          <li>⚠️ Flash Flood Warning - Uttarkashi (Sep 2025)</li>
+          <li>⚠️ Landslide Risk - Gangotri Highway</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Recent Incidents</h2>
+        <ul>
+          <li>✅ Aug 2025: Cloudburst in Barkot, 3 rescued</li>
+          <li>✅ Jul 2025: Landslide blocked Gangotri road</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Disaster Statistics</h2>
+        <ul id="disaster-stats">
+          <li>🌧️ Floods: 45 incidents this year</li>
+          <li>🏔️ Landslides: 28 reported</li>
+          <li>☁️ Cloudbursts: 12 events</li>
+          <li>🌋 Earthquakes: 5 events</li>
+          <li>🔥 Wildfires: 8 incidents</li>
+          <li>🌪️ Cyclones: 3 events</li>
+          <li>👥 People Affected: 2,500+</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Government Helplines</h2>
+        <ul>
+          <li>📞 NDMA: 011-26701700</li>
+          <li>📞 Uttarakhand SDMA: 0135-2710334</li>
+          <li>📞 State Control Room: 1070</li>
+          <li>🚒 Fire Services: 101</li>
+          <li>🚔 Police: 100</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Live Sensor Data</h2>
+        <ul>
+          <li>🌱 Soil Moisture: <span id="moisture-value">--</span></li>
+          <li>🌧️ Rain Status: <span id="rain-value">--</span></li>
+          <li>💧 Water Level: <span id="water-level-value">--</span></li>
+          <li>🌡️ Temperature: <span id="temperature-value">--</span></li>
+          <li>💨 Humidity: <span id="humidity-value">--</span></li>
+          <li>🏔️ Earthquake: <span id="earthquake-value">--</span></li>
+          <li>🏔️ Landslide Risk: <span id="landslide-value">--</span></li>
+          <li>🔥 Wildfire Risk: <span id="wildfire-value">--</span></li>
+          <li>🌪️ Cyclone Wind Speed: <span id="cyclone-value">--</span></li>
+        </ul>
+        <p id="sensor-timestamp" style="font-size: 12px; color: #666; margin-top: 10px;">Loading...</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Official Government Websites -->
+  <section id="government-links" class="container">
+    <h2>Official Government Websites</h2>
+    <div class="gov-links-grid">
+
+      <div class="gov-link-card">
+        <h3>🇮🇳 National Disaster Management Authority (NDMA)</h3>
+        <p>Central authority for disaster management in India.</p>
+        <a href="https://ndma.gov.in/" target="_blank">Visit Website</a>
+      </div>
+      <div class="gov-link-card">
+        <h3>🌤️ Indian Meteorological Department (IMD)</h3>
+        <p>Weather forecasts and meteorological services.</p>
+        <a href="https://mausam.imd.gov.in/" target="_blank">Visit Website</a>
+      </div>
+      <div class="gov-link-card">
+        <h3>🏛️ Uttarakhand Government</h3>
+        <p>Official website of the Uttarakhand Government.</p>
+        <a href="https://uk.gov.in/" target="_blank">Visit Website</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <p><a href="mailto:info@uttarakhanddisaster.gov.in">📧 info@uttarakhanddisaster.gov.in</a></p>
+        <p><a href="tel:+91-135-2710334">📞 +91-135-2710334</a></p>
+      </div>
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <p>🔗 <a href="https://www.facebook.com/UttarakhandGov" target="_blank">Facebook</a> | <a href="https://twitter.com/uttarakhandgov" target="_blank">Twitter</a> | <a href="https://www.instagram.com/uttarakhandgov/" target="_blank">Instagram</a></p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <p><a href="map.html">Map</a> | <a href="alerts.html">Alerts</a> | <a href="report.html">Report</a></p>
+      </div>
+    </div>
+    <div class="creators" style="text-align: center;">
+      <p>Website Created by: Gautam Bijalwan, Prashant Ramola, Gauri Semwal</p>
+      <p>Roles by: Shivom Rana & Hemant</p>
+      <p> Mentor: shivom bhatt</p>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Smart Disaster Management System - Uttarakhand. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

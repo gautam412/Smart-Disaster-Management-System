@@ -1,0 +1,75 @@
+ie ni <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Disaster-Prone Districts Map</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+<marquee scrollamount="4" id="topMarquee" onmouseover="this.setAttribute('scrollamount', 0, 0); document.getElementById('topMarquee').stop();" onmouseout="this.setAttribute('scrollamount', 4, 0); document.getElementById('topMarquee').start();" style="border: 2px solid #444; border-radius: 5px; padding: 5px;">
+
+     		        <div class="region region-highlights">
+    <div id="block-block-8" class="block block-block first last odd">
+
+      <p>Saving Lives &amp; Beyond “आपदा सेवा सदैव सर्वत्र”             NDRF Helpline Number : +91-9711077372              Saving Lives &amp; Beyond “आपदा सेवा सदैव सर्वत्र”             NDRF Helpline Number : +91-9711077372              Saving Lives &amp; Beyond “आपदा सेवा सदैव सर्वत्र”             NDRF Helpline Number : +91-9711077372              Saving Lives &amp; Beyond “आपदा सेवा सदैव सर्वत्र”</p>
+
+</div>
+  </div>
+</marquee>
+
+  <header>
+    <h1>Disaster-Prone Districts - Uttarakhand</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="map.html" class="active">Map</a>
+      <a href="report.html">Report Incident</a>
+      <a href="resources.html">Resources</a>
+      <a href="admin.html">Admin</a>
+      <button id="theme-toggle" class="theme-toggle-btn">🌙</button>
+    </nav>
+  </header>
+  <section>
+    <div id="map"></div>
+  </section>
+<!-- Map -->
+ <section id="map" class="container">
+  <h1 style="float: center;" >Disaster-Prone Districts Map</h1>
+
+  <select id="districtSelect" onchange="goToDistrict()" >
+    <option value="">-- Select District --</option>
+    <option value="30.73,78.44">Uttarkashi</option>
+    <option value="30.31,78.03">Dehradun</option>
+    <option value="30.41,78.03">Chamoli</option>
+    <option value="30.28,78.98">Rudraprayag</option>
+    <option value="30.39,78.48">Tehri Garhwal</option>
+    <option value="29.58,78.78">Pithoragarh</option>
+    <option value="30.15,80.22">Pauri Garhwal</option>
+    <option value="29.38,79.45">Almora</option>
+    <option value="29.83,79.78">Bageshwar</option>
+    <option value="29.33,79.65">Champawat</option>
+    <option value="29.92,78.07">Haridwar</option>
+    <option value="29.38,79.45">Nainital</option>
+    <option value="29.02,79.48">Udham Singh Nagar</option>
+  </select>
+
+  <br>
+  <!-- Map container -->
+  <div id="mapid"></div>
+</section>
+
+<style>
+  /* Styling for the map */
+  #mapid {
+    height: 600px;   /* smaller height */
+    width: 100%;      /* smaller width */
+    margin: 15px auto; 
+    border: 2px solid #444;
+    border-radius: 10px;
+    float: left; 
+  }
+</style>
+</body>
+</html>

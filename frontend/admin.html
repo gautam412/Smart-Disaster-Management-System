@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Smart Disaster Management System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Admin Login</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="map.html">Map</a>
+      <a href="alerts.html">Alerts</a>
+      <a href="report.html">Report</a>
+      <a href="resources.html">Resources</a>
+      <a href="admin.html" class="active">Admin</a>
+      <button id="theme-toggle" class="theme-toggle-btn">🌙</button>
+    </nav>
+  </header>
+
+  <section class="container">
+    <div id="loginForm">
+      <h2>Login to Admin Panel</h2>
+      <form id="adminLogin">
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account? <a href="#" onclick="showSignup()">Sign Up</a></p>
+    </div>
+
+    <div id="signupForm" style="display: none;">
+      <h2>Sign Up for Admin Access</h2>
+      <form id="adminSignup">
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <input type="password" placeholder="Confirm Password" required>
+        <button type="submit">Sign Up</button>
+      </form>
+      <p>Already have an account? <a href="#" onclick="showLogin()">Login</a></p>
+    </div>
+
+    <div id="adminPanel" style="display: none;">
+      <h2>Admin Controls</h2>
+      <div class="card">
+        <h3>Manage Alerts</h3>
+        <button onclick="addAlert()">Add New Alert</button>
+        <ul id="adminAlerts">
+          <li>⚠️ Flash Flood Warning - Uttarkashi (Sep 2025) <button onclick="removeAlert(this)">Remove</button></li>
+          <li>⚠️ Landslide Risk - Gangotri Highway <button onclick="removeAlert(this)">Remove</button></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Manage Incidents</h3>
+        <button onclick="addIncident()">Add New Incident</button>
+        <ul id="adminIncidents">
+          <li>✅ Aug 2025: Cloudburst in Barkot, 3 rescued <button onclick="removeIncident(this)">Remove</button></li>
+          <li>✅ Jul 2025: Landslide blocked Gangotri road <button onclick="removeIncident(this)">Remove</button></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Update Statistics</h3>
+        <form id="statsForm">
+          <label>Floods: <input type="number" id="floods" value="45"></label>
+          <label>Landslides: <input type="number" id="landslides" value="28"></label>
+          <label>Cloudbursts: <input type="number" id="cloudbursts" value="12"></label>
+          <label>Earthquakes: <input type="number" id="earthquakes" value="5"></label>
+          <label>Wildfires: <input type="number" id="wildfires" value="8"></label>
+          <label>Cyclones: <input type="number" id="cyclones" value="3"></label>
+          <label>People Affected: <input type="number" id="affected" value="2500"></label>
+          <button type="submit">Update</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Set Active Disaster Scenario</h3>
+        <form id="disasterScenarioForm">
+          <label>Active Disaster Type:
+            <select id="activeDisaster">
+              <option value="flood">Flood</option>
+              <option value="landslide">Landslide</option>
+              <option value="earthquake">Earthquake</option>
+              <option value="wildfire">Wildfire</option>
+              <option value="cyclone">Cyclone</option>
+              <option value="cloudburst">Cloudburst</option>
+            </select>
+          </label>
+          <button type="submit">Set Scenario</button>
+        </form>
+      </div>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+  <script>
+    function showSignup() {
+      document.getElementById('loginForm').style.display = 'none';
+      document.getElementById('signupForm').style.display = 'block';
+    }
+
+    function showLogin() {
+      document.getElementById('signupForm').style.display = 'none';
+      document.getElementById('loginForm').style.display = 'block';
+    }
+
+    document.getElementById('adminLogin').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Simple login simulation (in real app, use backend)
+      const username = e.target[0].value;
+      const password = e.target[1].value;
+      if (username && password) {
+        localStorage.setItem('loggedIn', 'true');
+        window.location.href = 'admin-dashboard.html';
+      } else {
+        alert('Please enter both username and password.');
+      }
+    });
+
+    document.getElementById('adminSignup').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = e.target[0].value;
+      const password = e.target[1].value;
+      const confirmPassword = e.target[2].value;
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+      // Simple signup simulation (in real app, save to backend)
+      alert('Account created successfully! You can now login.');
+      showLogin();
+    });
+
+    function logout() {
+      document.getElementById('loginForm').style.display = 'block';
+      document.getElementById('signupForm').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'none';
+    }
+
+    function addAlert() {
+      const alertText = prompt('Enter new alert:');
+      if (alertText) {
+        const li = document.createElement('li');
+        li.innerHTML = alertText + ' <button onclick="removeAlert(this)">Remove</button>';
+        document.getElementById('adminAlerts').appendChild(li);
+      }
+    }
+
+    function removeAlert(btn) {
+      btn.parentElement.remove();
+    }
+
+    function addIncident() {
+      const incidentText = prompt('Enter new incident:');
+      if (incidentText) {
+        const li = document.createElement('li');
+        li.innerHTML = incidentText + ' <button onclick="removeIncident(this)">Remove</button>';
+        document.getElementById('adminIncidents').appendChild(li);
+      }
+    }
+
+    function removeIncident(btn) {
+      btn.parentElement.remove();
+    }
+
+    document.getElementById('statsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Update disaster statistics dynamically
+      const stats = {
+        floods: e.target.floods.value,
+        landslides: e.target.landslides.value,
+        cloudbursts: e.target.cloudbursts.value,
+        earthquakes: e.target.earthquakes.value,
+        wildfires: e.target.wildfires.value,
+        cyclones: e.target.cyclones.value,
+        affected: e.target.affected.value
+      };
+      // Store in localStorage for persistence
+      localStorage.setItem('disasterStats', JSON.stringify(stats));
+      alert('Statistics updated');
+    });
+
+    // Handle disaster scenario form
+    const disasterScenarioForm = document.getElementById('disasterScenarioForm');
+    if (disasterScenarioForm) {
+      disasterScenarioForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const activeDisaster = e.target.activeDisaster.value;
+        localStorage.setItem('activeDisaster', activeDisaster);
+        alert(`Active disaster scenario set to: ${activeDisaster}`);
+      });
+    }
+  </script>
+</body>
+</html>
